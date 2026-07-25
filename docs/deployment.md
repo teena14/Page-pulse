@@ -11,16 +11,16 @@ The backend is a standard Node.js Express application. It can be deployed to pla
 |---|---|
 | `PORT` | The platform will usually inject this automatically (e.g., Render sets `PORT=10000`). |
 | `NODE_ENV` | Set this to `production` to optimize Express performance. |
+| `FRONTEND_ORIGIN` | The exact Vercel frontend origin allowed by CORS, e.g. `https://your-app.vercel.app`. Use commas for multiple origins/previews. |
 
 ### Build & Run Commands
 - **Install command:** `npm install --production`
 - **Start command:** `npm start` (or `node src/server.js`)
 
 ### Security Considerations
-- **CORS Setup**: In development, `app.use(cors())` allows all origins. For production, you should restrict CORS to ONLY your frontend domain.
-  ```javascript
-  // Example update in app.js
-  app.use(cors({ origin: 'https://your-frontend-domain.com' }));
+- **CORS Setup**: Set `FRONTEND_ORIGIN` in Render to your Vercel app URL. If you want to allow both production and a preview deployment, separate them with commas:
+  ```text
+  FRONTEND_ORIGIN=https://your-app.vercel.app,https://your-preview.vercel.app
   ```
 - **Rate Limiting**: Add a package like `express-rate-limit` to prevent malicious users from spamming the audit endpoint and exhausting your server resources.
 
@@ -49,5 +49,6 @@ The frontend is a static React application built with Vite. It can be hosted ent
 1. Deploy the `backend/` folder to a service like Render. Wait for the live URL (e.g., `https://page-pulse-api.onrender.com`).
 2. Go to Vercel/Netlify to deploy the `frontend/` folder.
 3. In the Vercel dashboard, add `VITE_API_BASE_URL=https://page-pulse-api.onrender.com`.
-4. Trigger the frontend build.
-5. Visit your live frontend URL.
+4. In the Render dashboard, add `FRONTEND_ORIGIN=https://your-vercel-app.vercel.app`.
+5. Trigger the frontend build.
+6. Visit your live frontend URL.
