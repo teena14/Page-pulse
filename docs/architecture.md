@@ -42,9 +42,9 @@ The Page Pulse application follows a standard client-server architecture, decoup
 - **React**: A component-based UI library that enables declarative rendering of state (e.g., loading, error, success states).
 - **Vite**: A modern frontend build tool that provides incredibly fast Hot Module Replacement (HMR) and optimized production builds.
 
-### Shared / Global
-- **CORS**: Middleware to allow the React frontend (running on a different port/domain) to securely communicate with the Express backend.
-- **dotenv**: Manages environment variables, ensuring sensitive configuration (like ports or API limits) remains out of the source code.
+### Deployment
+- **Vercel Functions**: The root `api/index.js` file exports the existing Express app as a serverless handler.
+- **Same-Origin API Calls**: The frontend calls `/api/v1/audit` directly. In production, Vercel routes that path to the backend function; in local development, Vite proxies `/api` to the backend server.
 
 ## 4. Project Folder Structure
 
@@ -87,6 +87,8 @@ page-pulse/
 
 ## 5. Backend Layer Responsibilities
 
+For Vercel deployment, the repository root also contains `api/index.js`, which imports the backend app without changing the backend layer structure.
+
 The backend is structured around a classic 3-tier architecture to enforce separation of concerns:
 
 - **Routes (`/routes`)**: The entry point for incoming requests. Responsible only for mapping specific HTTP verbs and paths (e.g., `POST /api/v1/audit`) to the corresponding controller.
@@ -94,7 +96,6 @@ The backend is structured around a classic 3-tier architecture to enforce separa
 - **Services (`/services`)**: The core engine of the application. Services handle the heavy lifting, such as initiating external HTTP requests, parsing HTML, and compiling the audit metrics. They are agnostic to HTTP transport layers.
 - **Middlewares (`/middlewares`)**: Functions that intercept the request before it reaches the controller. Used for centralized error handling and request validation.
 - **Utilities (`/utils`)**: Pure, reusable helper functions that perform specific, isolated tasks (e.g., string sanitization, word counting).
-- **Config (`/config`)**: Centralized management of environment variables and application-wide settings.
 
 ## 6. Request Lifecycle
 
@@ -154,7 +155,7 @@ Errors are managed predictably across the entire application:
 - **API Versioning**: Implementing `/v1/` ensures that future iterations of the audit engine will not break existing frontend clients.
 - **Modular Architecture**: Splitting the codebase into specific layers (routes, controllers, services) prevents spaghetti code and makes the repository easier to navigate for new developers.
 - **Reusable Utilities**: Logic like word counting is decoupled into pure functions, allowing for easy unit testing without mocking HTTP requests.
-- **Separation of Concerns**: Both frontend and backend are maintained as distinct modules, allowing them to be deployed, scaled, and maintained independently.
+- **Separation of Concerns**: Frontend and backend code are maintained as distinct modules while being deployed together under one Vercel project.
 
 ## 10. Scalability
 

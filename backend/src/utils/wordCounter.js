@@ -10,24 +10,24 @@
  *  4. Decode common HTML entities.
  *  5. Collapse whitespace and split into words.
  *
- * @param {string} html - Raw HTML string.
+ * @param {import('cheerio').Cheerio} $body - Cheerio body context.
  * @returns {number} Approximate visible word count.
  */
-function countWords(html) {
-  if (!html || typeof html !== 'string') return 0;
+function countWords($body) {
+  if (!$body || typeof $body.find !== 'function') return 0;
 
-  let text = html;
+  // Step 1: Clone to avoid mutating the original AST (if needed by other services)
+  // We can just find script and style tags and remove them. 
+  // Note: Since Cheerio mutations affect the tree, we should work on a clone.
+  const clonedBody = $body.clone();
 
-  // Step 1: Remove <script> blocks and their content
-  text = text.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+  // Step 2: Remove script and style tags completely
+  clonedBody.find('script, style').remove();
 
-  // Step 2: Remove <style> blocks and their content
-  text = text.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '');
-
-  // Step 3: Strip all remaining HTML tags (handles malformed/unclosed tags)
+  // Step 3: Extract HTML, replace tags with space to preserve word boundaries, and decode entities
+  let text = clonedBody.html() || '';
   text = text.replace(/<[^>]*>/g, ' ');
-
-  // Step 4: Decode common HTML entities to avoid counting entity refs as words
+  
   text = text
     .replace(/&nbsp;/gi, ' ')
     .replace(/&amp;/gi, '&')
@@ -36,7 +36,7 @@ function countWords(html) {
     .replace(/&quot;/gi, '"')
     .replace(/&#?\w+;/gi, ' ');
 
-  // Step 5: Collapse whitespace, trim, and split into words
+  // Step 4: Collapse whitespace, trim, and split into words
   const words = text.trim().split(/\s+/).filter((w) => w.length > 0);
 
   return words.length;

@@ -82,6 +82,8 @@ page-pulse/
 
 ## Architecture Overview
 
+For combined Vercel deployment, the repository root also includes `api/index.js` as the serverless Express entry point, `vercel.json` as the deployment routing config, and a root `package.json` for npm workspace scripts.
+
 Page Pulse uses a decoupled client-server architecture. The **Vite/React Frontend** captures input and manages UI state. When a user submits a URL, the frontend makes an HTTP POST request to the **Express Backend**. The backend validates the URL, fetches the remote HTML using Axios, parses it with Cheerio, and returns a structured JSON report. All errors are caught by a centralized middleware to ensure the frontend never receives unexpected HTML crash screens.
 
 For more details, see [Architecture Documentation](docs/architecture.md).
@@ -132,31 +134,29 @@ git clone https://github.com/your-username/page-pulse.git
 cd page-pulse
 ```
 
-### 2. Install Backend Dependencies
+### 2. Install Dependencies
 ```bash
-cd backend
 npm install
 ```
 
-### 3. Install Frontend Dependencies
+### 3. Run Backend
+In one terminal:
 ```bash
-cd ../frontend
-npm install
+npm start --workspace backend
 ```
 
-### 4. Run Backend
-From the `backend/` directory:
+### 4. Run Frontend
+In another terminal:
 ```bash
-npm start
+npm run dev --workspace frontend
 ```
 
-### 5. Run Frontend
-In a new terminal window, from the `frontend/` directory:
-```bash
-npm run dev
-```
+The frontend will be available at `http://localhost:3000`. Its `/api` requests are proxied to the local backend on port `5000`.
 
-The frontend will be available at `http://localhost:3000`.
+### 5. Production Build
+```bash
+npm run build
+```
 
 ---
 
@@ -177,14 +177,17 @@ The project is thoroughly tested with 100+ tests across the frontend and backend
 ### Backend Tests (Jest)
 Runs unit tests on utilities and integration tests on the Express API.
 ```bash
-cd backend
-npm test
+npm test --workspace backend
 ```
 
 ### Frontend Tests (Vitest)
 Runs unit and component tests using React Testing Library.
 ```bash
-cd frontend
+npm test --workspace frontend
+```
+
+Run both from the repository root:
+```bash
 npm test
 ```
 

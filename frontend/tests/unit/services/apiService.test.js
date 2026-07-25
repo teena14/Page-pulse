@@ -50,10 +50,6 @@ describe('auditUrl', () => {
     vi.clearAllMocks();
   });
 
-  afterEach(() => {
-    vi.unstubAllEnvs();
-  });
-
   // ─── Happy Path ──────────────────────────────────────────────────────────────
 
   describe('Happy Path', () => {
@@ -64,27 +60,10 @@ describe('auditUrl', () => {
 
       expect(axios.post).toHaveBeenCalledTimes(1);
       expect(axios.post).toHaveBeenCalledWith(
-        expect.stringContaining('/api/v1/audit'),
+        '/api/v1/audit',
         { url: 'https://example.com' }
       );
       expect(result).toEqual(fullSuccessResponse.data);
-    });
-
-    test('uses VITE_API_BASE_URL when configured by Vite', async () => {
-      vi.stubEnv('VITE_API_BASE_URL', 'https://api.page-pulse.test');
-      vi.resetModules();
-
-      const freshAxios = (await import('axios')).default;
-      const { auditUrl: auditUrlWithEnv } = await import('../../../src/services/apiService');
-
-      freshAxios.post.mockResolvedValue(fullSuccessResponse);
-
-      await auditUrlWithEnv('https://example.com');
-
-      expect(freshAxios.post).toHaveBeenCalledWith(
-        'https://api.page-pulse.test/api/v1/audit',
-        { url: 'https://example.com' }
-      );
     });
 
     test('returned object contains success, data, and timestamp fields', async () => {

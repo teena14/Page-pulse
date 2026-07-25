@@ -1,6 +1,9 @@
 'use strict';
 
-const { countMissingAlt } = require('../../../src/utils/imageAnalyzer');
+const cheerio = require('cheerio');
+const { countMissingAlt: originalCountMissingAlt } = require('../../../src/utils/imageAnalyzer');
+
+const countMissingAlt = (html) => originalCountMissingAlt(cheerio.load(html)('body'));
 
 describe('countMissingAlt', () => {
   // ─── Happy Path ────────────────────────────────────────────────────────────

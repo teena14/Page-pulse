@@ -1,6 +1,9 @@
 'use strict';
 
-const { countWords } = require('../../../src/utils/wordCounter');
+const cheerio = require('cheerio');
+const { countWords: originalCountWords } = require('../../../src/utils/wordCounter');
+
+const countWords = (html) => originalCountWords(cheerio.load(html)('body'));
 
 describe('countWords', () => {
   // ─── Happy Path ────────────────────────────────────────────────────────────

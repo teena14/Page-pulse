@@ -8,6 +8,9 @@
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "jest": {
     "testEnvironment": "node",
     "testMatch": [
@@ -21,8 +24,6 @@
   "dependencies": {
     "axios": "^1.18.1",
     "cheerio": "^1.2.0",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
     "express": "^5.2.1"
   }
 }

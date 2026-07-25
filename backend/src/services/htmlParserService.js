@@ -29,11 +29,11 @@ function parseHtml(html) {
 
   // Scope both counters to body HTML only — head content (title text, etc.)
   // is not visible to users and must not inflate the word/image counts.
-  const bodyHtml = $('body').html() || '';
+  const $body = $('body');
 
-  const imagesMissingAlt = countMissingAlt(bodyHtml);
+  const imagesMissingAlt = countMissingAlt($body);
 
-  const wordCount = countWords(bodyHtml);
+  const wordCount = countWords($body);
 
   return {
     title,

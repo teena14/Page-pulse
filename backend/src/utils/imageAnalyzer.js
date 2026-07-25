@@ -11,17 +11,18 @@ const cheerio = require('cheerio');
  *  - The alt attribute is an empty string (alt="").
  *  - The alt attribute contains only whitespace characters.
  *
- * @param {string} html - Raw HTML string to analyze.
+ * @param {import('cheerio').Cheerio} $body - Cheerio body context to analyze.
  * @returns {number} Count of <img> elements with missing or empty alt attributes.
  */
-function countMissingAlt(html) {
-  if (!html || typeof html !== 'string') return 0;
+function countMissingAlt($body) {
+  if (!$body || typeof $body.find !== 'function') return 0;
 
-  const $ = cheerio.load(html);
   let missingCount = 0;
 
-  $('img').each((_index, el) => {
-    const alt = $(el).attr('alt');
+  $body.find('img').each((_index, el) => {
+    // We can't use $(el) because we don't have the root $ here easily.
+    // But we know it's a Cheerio element, so we can access attributes via el.attribs
+    const alt = el.attribs && el.attribs.alt;
 
     // Missing alt attribute entirely
     if (alt === undefined) {
