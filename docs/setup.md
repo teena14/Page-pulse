@@ -36,26 +36,6 @@ npm install
 
 ---
 
-## Configuration
-
-Page Pulse is designed to run locally out-of-the-box with zero configuration required. However, you can use `.env` files to override defaults.
-
-### Backend Environment Variables
-Create a file named `.env` in the `backend/` directory:
-```env
-# Optional: Changes the port the Express server listens on. (Default: 5000)
-PORT=5000
-```
-
-### Frontend Environment Variables
-Create a file named `.env` in the `frontend/` directory:
-```env
-# Optional: Points the React frontend to the backend API. (Default: http://127.0.0.1:5000)
-VITE_API_BASE_URL=http://127.0.0.1:5000
-```
-
----
-
 ## Running Locally
 
 To run the full stack, you will need two terminal windows.

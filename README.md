@@ -144,34 +144,19 @@ cd ../frontend
 npm install
 ```
 
-### 4. Configure Environment Variables
-By default, the backend runs on port 5000 and the frontend expects the backend to be there. No environment variables are strictly required to run locally. If you need to change ports, see the Environment Variables section below.
-
-### 5. Run Backend
+### 4. Run Backend
 From the `backend/` directory:
 ```bash
 npm start
 ```
 
-### 6. Run Frontend
+### 5. Run Frontend
 In a new terminal window, from the `frontend/` directory:
 ```bash
 npm run dev
 ```
 
 The frontend will be available at `http://localhost:3000`.
-
----
-
-## Environment Variables
-
-While not required for a standard local setup, the following variables can be configured:
-
-### Backend (`backend/.env`)
-- `PORT`: The port the Express server will listen on (default: `5000`).
-
-### Frontend (`frontend/.env`)
-- `VITE_API_BASE_URL`: The full base URL of the backend API (default: `http://127.0.0.1:5000`). Useful when deploying to production where the API is hosted on a different domain.
 
 ---
 
