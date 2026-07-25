@@ -11,6 +11,7 @@ export default function App() {
   const isMounted = useRef(true);
 
   useEffect(() => {
+    isMounted.current = true;
     return () => {
       isMounted.current = false;
     };
@@ -58,6 +59,12 @@ export default function App() {
           </section>
         )}
       </main>
+
+      <footer className="site-footer">
+        <a href="https://digitalheroesco.com" target="_blank" rel="noopener noreferrer">
+          Built for Digital Heroes Training Task
+        </a>
+      </footer>
     </div>
   );
 }

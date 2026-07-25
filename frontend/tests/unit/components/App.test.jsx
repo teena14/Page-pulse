@@ -1,13 +1,13 @@
+import { vi } from 'vitest';
 import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
 import App from '../../../src/App';
 import * as apiService from '../../../src/services/apiService';
 
 // Mock the API service
-jest.mock('../../../src/services/apiService', () => ({
-  auditUrl: jest.fn(),
+vi.mock('../../../src/services/apiService', () => ({
+  auditUrl: vi.fn(),
 }));
 
 describe('App Component', () => {
@@ -23,7 +23,7 @@ describe('App Component', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   // ─── Happy Path ────────────────────────────────────────────────────────────
@@ -91,11 +91,10 @@ describe('App Component', () => {
       
       expect(apiService.auditUrl).toHaveBeenCalledTimes(1);
 
-      // Submit button should now be disabled, but userEvent.click ignores disabled elements.
-      // We will ensure it is disabled.
+      // Submit button should now be disabled
       expect(submitBtn).toBeDisabled();
 
-      // Second click (bypassing the disabled guard just in case the app doesn't disable it)
+      // Second click (bypassing the disabled guard just in case)
       submitBtn.click();
       
       expect(apiService.auditUrl).toHaveBeenCalledTimes(1); // Still 1
@@ -185,7 +184,7 @@ describe('App Component', () => {
       // Unmount before the promise resolves
       unmount();
       
-      // Resolve the promise, should not throw or warn about unmounted state updates (if handled correctly)
+      // Resolve the promise, should not throw or warn about unmounted state updates
       await act(async () => {
         resolveApi({ success: true, data: mockReport });
       });

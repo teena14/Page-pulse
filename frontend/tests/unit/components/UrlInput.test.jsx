@@ -1,6 +1,6 @@
+import { vi } from 'vitest';
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import UrlInput from '../../../src/components/UrlInput';
 
@@ -8,7 +8,7 @@ describe('UrlInput Component', () => {
   let mockOnSubmit;
 
   beforeEach(() => {
-    mockOnSubmit = jest.fn();
+    mockOnSubmit = vi.fn();
   });
 
   // ─── Happy Path ────────────────────────────────────────────────────────────
@@ -97,7 +97,6 @@ describe('UrlInput Component', () => {
       const submitButton = screen.getByRole('button', { name: /audit/i });
 
       // Even if valid URL is entered, button should be disabled when pending
-      // (Bypassing disable via direct event to ensure onSubmit is guarded or button is disabled)
       await user.type(input, 'https://example.com');
       
       expect(submitButton).toBeDisabled();

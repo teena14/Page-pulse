@@ -1,7 +1,11 @@
-'use strict';
+import { vi } from 'vitest';
+import axios from 'axios';
+import { auditUrl } from '../../../src/services/apiService';
 
-const axios = require('axios');
-const { auditUrl } = require('../../../src/services/apiService');
+vi.mock('axios', () => {
+  const mockAxios = { post: vi.fn(), create: vi.fn(() => mockAxios) };
+  return { default: mockAxios };
+});
 
 // ─── Shared fixtures ───────────────────────────────────────────────────────────
 
@@ -43,7 +47,7 @@ const emptyDataResponse = {
 
 describe('auditUrl', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   // ─── Happy Path ──────────────────────────────────────────────────────────────
@@ -57,7 +61,8 @@ describe('auditUrl', () => {
       expect(axios.post).toHaveBeenCalledTimes(1);
       expect(axios.post).toHaveBeenCalledWith(
         expect.stringContaining('/api/v1/audit'),
-        { url: 'https://example.com' }
+        { url: 'https://example.com' },
+        expect.any(Object)
       );
       expect(result).toEqual(fullSuccessResponse.data);
     });

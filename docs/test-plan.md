@@ -6,7 +6,6 @@ To ensure a robust and reliable application, the testing strategy is divided int
 
 - **Unit Testing**: Focuses on validating individual, isolated components (such as utility functions, validators, and specific HTML parsing logic) to ensure they work correctly in isolation without dependencies on network or database layers.
 - **Integration Testing**: Focuses on the interaction between components, particularly the API layer. This ensures that the routes, middlewares, controllers, and services function together harmoniously to process a request and yield the correct structured JSON response.
-- **End-to-End (E2E) Testing**: Simulates real user interactions from the React frontend, verifying that the entire stack (from the UI to the backend to the external target and back) behaves as expected.
 - **Manual Testing**: Human verification of the UI/UX, edge cases, and unpredictable external network scenarios that are difficult to fully mock, ensuring the application handles real-world anomalies gracefully.
 
 ## 2. Scope
@@ -34,9 +33,9 @@ The testing environment mirrors the application's technology stack, utilizing st
 - **Frameworks**: Express (Backend), React (Frontend)
 - **Dependencies**: Axios (HTTP Client), Cheerio (HTML Parsing)
 - **Test Runners / Libraries**: 
-  - **Jest**: The primary test runner and assertion library for both unit and integration tests.
+  - **Jest**: The primary test runner and assertion library for backend unit and integration tests.
   - **Supertest**: Used alongside Jest to mock HTTP requests for testing the Express API routes without starting a physical server.
-  - **Playwright**: The E2E testing framework for simulating real user interactions in a browser against the full running stack (frontend + backend).
+  - **Vitest**: The test runner used for the React frontend, integrating seamlessly with Vite without requiring Babel.
 
 ## 4. Test Cases
 

@@ -4,6 +4,7 @@
   "description": "Page Pulse backend API server",
   "main": "src/server.js",
   "scripts": {
+    "start": "node src/server.js",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
   },

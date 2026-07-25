@@ -76,8 +76,7 @@ page-pulse/
 │   │   ├── App.jsx           # Root component
 │   │   └── main.jsx          # React DOM entry point
 │   ├── tests/
-│   │   ├── unit/             # Jest tests for components and frontend services
-│   │   └── e2e/              # Playwright tests for full-stack user flows
+│   │   └── unit/             # Vitest tests for components and frontend services
 │   ├── package.json
 │   └── vite.config.js
 │

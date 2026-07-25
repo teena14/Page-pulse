@@ -1,0 +1,111 @@
+# Local Setup Guide
+
+Follow this guide to get Page Pulse running on your local machine for development or testing.
+
+## Prerequisites
+
+Ensure you have the following installed before proceeding:
+- [Node.js](https://nodejs.org/en/) (v18 or higher recommended)
+- `npm` (comes bundled with Node.js)
+- Git
+
+---
+
+## Installation
+
+Clone the repository to your local machine:
+```bash
+git clone https://github.com/your-username/page-pulse.git
+cd page-pulse
+```
+
+The project is split into two independent parts: `backend` and `frontend`. You must install dependencies for both.
+
+### Backend Setup
+```bash
+cd backend
+npm install
+```
+
+### Frontend Setup
+Open a new terminal window or tab in the project root:
+```bash
+cd frontend
+npm install
+```
+
+---
+
+## Configuration
+
+Page Pulse is designed to run locally out-of-the-box with zero configuration required. However, you can use `.env` files to override defaults.
+
+### Backend Environment Variables
+Create a file named `.env` in the `backend/` directory:
+```env
+# Optional: Changes the port the Express server listens on. (Default: 5000)
+PORT=5000
+```
+
+### Frontend Environment Variables
+Create a file named `.env` in the `frontend/` directory:
+```env
+# Optional: Points the React frontend to the backend API. (Default: http://127.0.0.1:5000)
+VITE_API_BASE_URL=http://127.0.0.1:5000
+```
+
+---
+
+## Running Locally
+
+To run the full stack, you will need two terminal windows.
+
+**1. Start the Backend:**
+```bash
+cd backend
+npm start
+```
+You should see: `Server listening on port 5000`
+
+**2. Start the Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+You should see the Vite logo and a local URL, typically: `http://localhost:3000`
+
+Open your browser and navigate to the frontend URL to start auditing pages!
+
+---
+
+## Running Tests
+
+We maintain strict test coverage to prevent regressions.
+
+**Backend Unit & Integration Tests (Jest):**
+```bash
+cd backend
+npm test
+```
+
+**Frontend Unit Tests (Vitest):**
+```bash
+cd frontend
+npm test
+```
+
+---
+
+## Troubleshooting
+
+### "Error: connect ECONNREFUSED 127.0.0.1:5000"
+**Cause:** The frontend cannot reach the backend.
+**Solution:** Ensure you are running the backend (`npm start` in the `backend/` folder) and that it is listening on port 5000. 
+
+### Tests fail with "Cannot use import statement outside a module"
+**Cause:** You are running the frontend tests with Jest instead of Vitest.
+**Solution:** Ensure you pulled the latest `package.json` where the test script was updated to `vitest run`, and run `npm install` again to clean up old dependencies.
+
+### CORS Errors in the Browser Console
+**Cause:** The frontend is hosted on a different domain/port than the backend, and the backend isn't allowing it.
+**Solution:** The backend includes the `cors` middleware natively. Ensure you didn't accidentally delete `app.use(cors())` from `backend/src/app.js`.
