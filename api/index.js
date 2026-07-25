@@ -1,6 +1,6 @@
 'use strict';
 
-const app = require('../src/app');
+const app = require('../backend/src/app');
 
 module.exports = app;
 module.exports.default = app;
