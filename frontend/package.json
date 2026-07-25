@@ -1,0 +1,25 @@
+{
+  "name": "page-pulse-frontend",
+  "version": "1.0.0",
+  "description": "Page Pulse frontend React application",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "jest --runInBand"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {},
+    "testMatch": ["**/tests/**/*.test.js"],
+    "moduleNameMapper": {
+      "^axios$": "<rootDir>/tests/__mocks__/axios.js"
+    }
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.0"
+  }
+}
