@@ -9,9 +9,14 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testMatch": ["**/tests/**/*.test.js"]
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
   },
   "devDependencies": {
     "jest": "^29.0.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0"
   }
 }
