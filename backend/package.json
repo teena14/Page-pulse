@@ -1,0 +1,17 @@
+{
+  "name": "page-pulse-backend",
+  "version": "1.0.0",
+  "description": "Page Pulse backend API server",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": ["**/tests/**/*.test.js"]
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}
