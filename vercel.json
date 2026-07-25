@@ -6,7 +6,7 @@
         },
         "backend": {
             "root": "backend",
-            "entrypoint": "api/index.js"
+            "framework": null
         }
     },
     "rewrites": [
