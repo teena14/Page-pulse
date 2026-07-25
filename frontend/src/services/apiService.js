@@ -3,9 +3,7 @@
 import axios from 'axios';
 
 /** Base URL of the Page Pulse backend API. */
-const API_BASE_URL =
-  (typeof process !== 'undefined' && process.env.VITE_API_BASE_URL) ||
-  'http://127.0.0.1:5000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000';
 
 /**
  * Creates and throws a normalised error from a failed API call.
