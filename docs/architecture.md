@@ -61,6 +61,10 @@ page-pulse/
 │   │   ├── config/           # Application configuration and environment setup
 │   │   ├── app.js            # Express application setup
 │   │   └── server.js         # Entry point to start the server
+│   ├── tests/
+│   │   ├── unit/             # Jest tests for utils and services in isolation
+│   │   ├── integration/      # Supertest tests for routes and middlewares
+│   │   └── fixtures/         # Shared mock data (e.g., mockHtml.js, mockResponses.js)
 │   ├── package.json
 │   └── .env
 │
@@ -71,6 +75,9 @@ page-pulse/
 │   │   ├── services/         # Frontend API communication logic
 │   │   ├── App.jsx           # Root component
 │   │   └── main.jsx          # React DOM entry point
+│   ├── tests/
+│   │   ├── unit/             # Jest tests for components and frontend services
+│   │   └── e2e/              # Playwright tests for full-stack user flows
 │   ├── package.json
 │   └── vite.config.js
 │

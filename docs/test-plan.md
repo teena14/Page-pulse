@@ -36,6 +36,7 @@ The testing environment mirrors the application's technology stack, utilizing st
 - **Test Runners / Libraries**: 
   - **Jest**: The primary test runner and assertion library for both unit and integration tests.
   - **Supertest**: Used alongside Jest to mock HTTP requests for testing the Express API routes without starting a physical server.
+  - **Playwright**: The E2E testing framework for simulating real user interactions in a browser against the full running stack (frontend + backend).
 
 ## 4. Test Cases
 
@@ -58,6 +59,9 @@ The testing environment mirrors the application's technology stack, utilizing st
 | TC-15 | HTML Parse | Missing / Empty alt attributes | HTML with `<img src="...">` and `<img src="..." alt="">` | HTTP 200; `imagesMissingAlt` correctly increments for both | High |
 | TC-16 | Boundary | Huge HTML page | URL returning a massive HTML document | HTTP 200; Processed without crashing or OOM errors | Medium |
 | TC-17 | Boundary | Empty HTML | Target returns 200 OK but an empty body | HTTP 200; All metrics default to 0/empty/null safely | Medium |
+| TC-18 | Network | Target website returns 404 or 500 | URL of a page that responds with a 4xx/5xx status | API returns HTTP 200; `httpStatus` field in `data` reflects the target's actual status code (e.g., `404`). Not to be confused with the API's own `500 INTERNAL_SERVER_ERROR`. | High |
+| TC-19 | Edge Case | Target is a ZIP file | URL pointing to `.zip` | HTTP 422; `NON_HTML_RESPONSE` error | High |
+| TC-20 | Network | Redirect loop on target URL | URL that triggers an infinite redirect chain | HTTP 408; `REQUEST_TIMEOUT` error — the loop is resolved by the existing 10-second timeout policy rather than hanging indefinitely | Medium |
 
 ## 5. Unit Test Plan
 
